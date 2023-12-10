@@ -1,1 +1,4 @@
 openai
+playwright
+pillow
+python-dotenv
