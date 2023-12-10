@@ -92,7 +92,7 @@ if __name__ == "__main__":
             }
         )
 
-        URL = "https://bbc.com/news"
+        URL = None
         SCREENSHOT_BASE_64 = None
         QUALITY = 42
 
