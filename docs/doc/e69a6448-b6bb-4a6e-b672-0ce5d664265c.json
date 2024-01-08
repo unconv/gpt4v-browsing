@@ -1,0 +1,10 @@
+{
+    "summary": "Code is using Puppeteer and StealthPlugin to take a screenshot of a given URL. It first launches a browser, sets the viewport size, waits for 8 seconds (timeout), then takes two screenshots with a delay of 2 seconds between them. Finally, it closes the browser.",
+    "details": [
+        {
+            "comment": "Code is using Puppeteer and StealthPlugin to take a screenshot of a given URL. It first launches a browser, sets the viewport size, waits for 8 seconds (timeout), then takes two screenshots with a delay of 2 seconds between them. Finally, it closes the browser.",
+            "location": "\"/media/root/Toshiba XG3/works/gpt4v-browsing/docs/src/screenshot.js\":0-38",
+            "content": "const puppeteer = require('puppeteer-extra');\nconst StealthPlugin = require('puppeteer-extra-plugin-stealth');\npuppeteer.use(StealthPlugin());\nconst url = process.argv[2];\nconst timeout = 8000;\n(async () => {\n    const browser = await puppeteer.launch( {\n        headless: \"new\",\n    } );\n    const page = await browser.newPage();\n    await page.setViewport( {\n        width: 1200,\n        height: 1200,\n        deviceScaleFactor: 1,\n    } );\n    setTimeout(async () => {\n        await page.screenshot( {\n            path: \"screenshot.jpg\",\n            fullPage: true,\n        } );\n    }, timeout-2000);\n    await page.goto( url, {\n        waitUntil: \"networkidle0\",\n        timeout: timeout,\n    } );\n    await page.screenshot( {\n        path: \"screenshot.jpg\",\n        fullPage: true,\n    } );\n    await browser.close();\n})();"
+        }
+    ]
+}

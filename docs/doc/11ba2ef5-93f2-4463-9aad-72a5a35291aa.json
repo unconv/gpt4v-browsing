@@ -1,0 +1,10 @@
+{
+    "summary": "GPT4 Vision web crawling tool uses API and Puppeteer to answer questions based on website screenshots. JavaScript version supports URL navigation and link clicking, while Python version opens URLs directly using Puppeteer and JavaScript.",
+    "details": [
+        {
+            "comment": "GPT4 Vision web crawling tool uses API and Puppeteer to answer questions based on website screenshots. JavaScript version supports URL navigation and link clicking, while Python version opens URLs directly using Puppeteer and JavaScript.",
+            "location": "\"/media/root/Toshiba XG3/works/gpt4v-browsing/docs/src/README.md\":0-30",
+            "content": "# GPT4 Vision Web Crawling\nThis is a GPT4 Vision API and Puppeteer powered tool that can answer questions based on website screenshots. You ask it a question and it will browse to a website and take a screenshot. Then it will use GPT4 Vision API to answer the question based on the screenshot.\n## JavaScript version\nThe JavaScript version (`vision_crawl.js`) is able to not only open a URL directly, but it can also click on links on pages.\n```shell\n$ npm install\n$ node vision_crawl.js\n```\n## Python version\nThe Python version (`vision_crawl.py`) is the original version, that only opens one URL at a time directly. The Python version uses JavaScript too, for the Puppeteer part.\n```shell\n$ npm install\n$ pip install -r requirements.txt\n$ python3 vision_crawl.py\n```\n## Examples\nYou can ask stuff like this, for example:\n- \"What is the weather like in California?\"\n- \"What are the latest news in the world?\"\n- \"What is the current stock price of Tesla?\"\n- \"How many subscribers does Unconventional Coding have on YouTube?\""
+        }
+    ]
+}
