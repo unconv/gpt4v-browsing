@@ -1,0 +1,40 @@
+{
+    "url": {
+        "full": "https://github.com/unconv/gpt4v-browsing",
+        "partial": "unconv/gpt4v-browsing"
+    },
+    "file_mapping": {
+        "0": {
+            "filepath": "/README.md",
+            "entry_id": 0,
+            "language_id": "markdown"
+        },
+        "1": {
+            "filepath": "/package.json",
+            "entry_id": 4,
+            "language_id": "json"
+        },
+        "2": {
+            "filepath": "/requirements.txt",
+            "entry_id": 8,
+            "language_id": "plain-text"
+        },
+        "3": {
+            "filepath": "/screenshot.js",
+            "entry_id": 12,
+            "language_id": "javascript"
+        },
+        "4": {
+            "filepath": "/vision_crawl.js",
+            "entry_id": 16,
+            "language_id": "javascript"
+        },
+        "5": {
+            "filepath": "/vision_crawl.py",
+            "entry_id": 38,
+            "language_id": "python"
+        }
+    },
+    "project_name": "gpt4v-browsing",
+    "split_count": 1
+}

@@ -1,0 +1,260 @@
+{
+    "0": {
+        "file_id": 0,
+        "content": "/README.md",
+        "type": "filepath"
+    },
+    "1": {
+        "file_id": 0,
+        "content": "GPT4 Vision web crawling tool uses API and Puppeteer to answer questions based on website screenshots. JavaScript version supports URL navigation and link clicking, while Python version opens URLs directly using Puppeteer and JavaScript.",
+        "type": "summary"
+    },
+    "2": {
+        "file_id": 0,
+        "content": "# GPT4 Vision Web Crawling\nThis is a GPT4 Vision API and Puppeteer powered tool that can answer questions based on website screenshots. You ask it a question and it will browse to a website and take a screenshot. Then it will use GPT4 Vision API to answer the question based on the screenshot.\n## JavaScript version\nThe JavaScript version (`vision_crawl.js`) is able to not only open a URL directly, but it can also click on links on pages.\n```shell\n$ npm install\n$ node vision_crawl.js\n```\n## Python version\nThe Python version (`vision_crawl.py`) is the original version, that only opens one URL at a time directly. The Python version uses JavaScript too, for the Puppeteer part.\n```shell\n$ npm install\n$ pip install -r requirements.txt\n$ python3 vision_crawl.py\n```\n## Examples\nYou can ask stuff like this, for example:\n- \"What is the weather like in California?\"\n- \"What are the latest news in the world?\"\n- \"What is the current stock price of Tesla?\"\n- \"How many subscribers does Unconventional Coding have on YouTube?\"",
+        "type": "code",
+        "location": "/README.md:1-31"
+    },
+    "3": {
+        "file_id": 0,
+        "content": "GPT4 Vision web crawling tool uses API and Puppeteer to answer questions based on website screenshots. JavaScript version supports URL navigation and link clicking, while Python version opens URLs directly using Puppeteer and JavaScript.",
+        "type": "comment"
+    },
+    "4": {
+        "file_id": 1,
+        "content": "/package.json",
+        "type": "filepath"
+    },
+    "5": {
+        "file_id": 1,
+        "content": "This is a package.json file for the \"gpt4v-browsing\" project, with dependencies including openai, puppeteer, and related packages.",
+        "type": "summary"
+    },
+    "6": {
+        "file_id": 1,
+        "content": "{\n  \"name\": \"gpt4v-browsing\",\n  \"type\": \"module\",\n  \"version\": \"1.0.0\",\n  \"description\": \"\",\n  \"main\": \"index.js\",\n  \"scripts\": {\n    \"test\": \"echo \\\"Error: no test specified\\\" && exit 1\"\n  },\n  \"author\": \"\",\n  \"license\": \"ISC\",\n  \"dependencies\": {\n    \"openai\": \"^4.20.0\",\n    \"puppeteer\": \"^21.5.2\",\n    \"puppeteer-extra\": \"^3.3.6\",\n    \"puppeteer-extra-plugin-stealth\": \"^2.11.2\",\n    \"readline\": \"^1.3.0\"\n  }\n}",
+        "type": "code",
+        "location": "/package.json:1-19"
+    },
+    "7": {
+        "file_id": 1,
+        "content": "This is a package.json file for the \"gpt4v-browsing\" project, with dependencies including openai, puppeteer, and related packages.",
+        "type": "comment"
+    },
+    "8": {
+        "file_id": 2,
+        "content": "/requirements.txt",
+        "type": "filepath"
+    },
+    "9": {
+        "file_id": 2,
+        "content": "This code is specifying a dependency on the 'openai' library for this project.",
+        "type": "summary"
+    },
+    "10": {
+        "file_id": 2,
+        "content": "openai",
+        "type": "code",
+        "location": "/requirements.txt:1-1"
+    },
+    "11": {
+        "file_id": 2,
+        "content": "This code is specifying a dependency on the 'openai' library for this project.",
+        "type": "comment"
+    },
+    "12": {
+        "file_id": 3,
+        "content": "/screenshot.js",
+        "type": "filepath"
+    },
+    "13": {
+        "file_id": 3,
+        "content": "Code is using Puppeteer and StealthPlugin to take a screenshot of a given URL. It first launches a browser, sets the viewport size, waits for 8 seconds (timeout), then takes two screenshots with a delay of 2 seconds between them. Finally, it closes the browser.",
+        "type": "summary"
+    },
+    "14": {
+        "file_id": 3,
+        "content": "const puppeteer = require('puppeteer-extra');\nconst StealthPlugin = require('puppeteer-extra-plugin-stealth');\npuppeteer.use(StealthPlugin());\nconst url = process.argv[2];\nconst timeout = 8000;\n(async () => {\n    const browser = await puppeteer.launch( {\n        headless: \"new\",\n    } );\n    const page = await browser.newPage();\n    await page.setViewport( {\n        width: 1200,\n        height: 1200,\n        deviceScaleFactor: 1,\n    } );\n    setTimeout(async () => {\n        await page.screenshot( {\n            path: \"screenshot.jpg\",\n            fullPage: true,\n        } );\n    }, timeout-2000);\n    await page.goto( url, {\n        waitUntil: \"networkidle0\",\n        timeout: timeout,\n    } );\n    await page.screenshot( {\n        path: \"screenshot.jpg\",\n        fullPage: true,\n    } );\n    await browser.close();\n})();",
+        "type": "code",
+        "location": "/screenshot.js:1-39"
+    },
+    "15": {
+        "file_id": 3,
+        "content": "Code is using Puppeteer and StealthPlugin to take a screenshot of a given URL. It first launches a browser, sets the viewport size, waits for 8 seconds (timeout), then takes two screenshots with a delay of 2 seconds between them. Finally, it closes the browser.",
+        "type": "comment"
+    },
+    "16": {
+        "file_id": 4,
+        "content": "/vision_crawl.js",
+        "type": "filepath"
+    },
+    "17": {
+        "file_id": 4,
+        "content": "The browser extension, using Puppeteer, OpenAI, and user input, highlights visible links on webpages, tracks conversations in the 'messages' array, utilizes Google search engine for information, checks for link clicks and page events, handles timeouts, captures screenshots, and records user input.",
+        "type": "summary"
+    },
+    "18": {
+        "file_id": 4,
+        "content": "import puppeteer from 'puppeteer-extra';\nimport StealthPlugin from 'puppeteer-extra-plugin-stealth';\nimport OpenAI from 'openai';\nimport readline from 'readline';\nimport fs from 'fs';\npuppeteer.use(StealthPlugin());\nconst openai = new OpenAI();\nconst timeout = 8000;\nasync function image_to_base64(image_file) {\n    return await new Promise((resolve, reject) => {\n        fs.readFile(image_file, (err, data) => {\n            if (err) {\n                console.error('Error reading the file:', err);\n                reject();\n                return;\n            }\n            const base64Data = data.toString('base64');\n            const dataURI = `data:image/jpeg;base64,${base64Data}`;\n            resolve(dataURI);\n        });\n    });\n}\nasync function input( text ) {\n    let the_prompt;\n    const rl = readline.createInterface({\n      input: process.stdin,\n      output: process.stdout\n    });\n    await (async () => {\n        return new Promise( resolve => {\n            rl.question( text, (prompt) => {\n                the_prompt = prompt;",
+        "type": "code",
+        "location": "/vision_crawl.js:1-39"
+    },
+    "19": {
+        "file_id": 4,
+        "content": "This code imports necessary libraries, sets up the Stealth plugin for Puppeteer, creates an instance of OpenAI, defines a function to convert images to base64, and initiates a readline interface for user input.",
+        "type": "comment"
+    },
+    "20": {
+        "file_id": 4,
+        "content": "                rl.close();\n                resolve();\n            } );\n        } );\n    })();\n    return the_prompt;\n}\nasync function sleep( milliseconds ) {\n    return await new Promise((r, _) => {\n        setTimeout( () => {\n            r();\n        }, milliseconds );\n    });\n}\nasync function highlight_links( page ) {\n    await page.evaluate(() => {\n        document.querySelectorAll('[gpt-link-text]').forEach(e => {\n            e.removeAttribute(\"gpt-link-text\");\n        });\n    });\n    const elements = await page.$$(\n        \"a, button, input, textarea, [role=button], [role=treeitem]\"\n    );\n    elements.forEach( async e => {\n        await page.evaluate(e => {\n            function isElementVisible(el) {\n                if (!el) return false; // Element does not exist\n                function isStyleVisible(el) {\n                    const style = window.getComputedStyle(el);\n                    return style.width !== '0' &&\n                           style.height !== '0' &&\n                           style.opacity !== '0' &&",
+        "type": "code",
+        "location": "/vision_crawl.js:40-77"
+    },
+    "21": {
+        "file_id": 4,
+        "content": "The code is a browser extension or script that highlights links on a webpage. It first closes the Readline interface and resolves any pending operations. Then, it defines a sleep function for waiting during asynchronous operations. The main function is highlight_links which removes existing link markers from the page's HTML elements and finds all clickable elements on the page. Finally, it iterates through these elements, evaluating a function to determine if they are visible and possibly applying some visual effects like highlighting them.",
+        "type": "comment"
+    },
+    "22": {
+        "file_id": 4,
+        "content": "                           style.display !== 'none' &&\n                           style.visibility !== 'hidden';\n                }\n                function isElementInViewport(el) {\n                    const rect = el.getBoundingClientRect();\n                    return (\n                    rect.top >= 0 &&\n                    rect.left >= 0 &&\n                    rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&\n                    rect.right <= (window.innerWidth || document.documentElement.clientWidth)\n                    );\n                }\n                // Check if the element is visible style-wise\n                if (!isStyleVisible(el)) {\n                    return false;\n                }\n                // Traverse up the DOM and check if any ancestor element is hidden\n                let parent = el;\n                while (parent) {\n                    if (!isStyleVisible(parent)) {\n                    return false;\n                    }\n                    parent = parent.parentElement;",
+        "type": "code",
+        "location": "/vision_crawl.js:78-103"
+    },
+    "23": {
+        "file_id": 4,
+        "content": "Checks if the element is visible both style-wise and within viewport",
+        "type": "comment"
+    },
+    "24": {
+        "file_id": 4,
+        "content": "                }\n                // Finally, check if the element is within the viewport\n                return isElementInViewport(el);\n            }\n            e.style.border = \"1px solid red\";\n            const position = e.getBoundingClientRect();\n            if( position.width > 5 && position.height > 5 && isElementVisible(e) ) {\n                const link_text = e.textContent.replace(/[^a-zA-Z0-9 ]/g, '');\n                e.setAttribute( \"gpt-link-text\", link_text );\n            }\n        }, e);\n    } );\n}\nasync function waitForEvent(page, event) {\n    return page.evaluate(event => {\n        return new Promise((r, _) => {\n            document.addEventListener(event, function(e) {\n                r();\n            });\n        });\n    }, event)\n}\n(async () => {\n    console.log( \"###########################################\" );\n    console.log( \"# GPT4V-Browsing by Unconventional Coding #\" );\n    console.log( \"###########################################\\n\" );\n    const browser = await puppeteer.launch( {\n        headless: \"new\",",
+        "type": "code",
+        "location": "/vision_crawl.js:104-138"
+    },
+    "25": {
+        "file_id": 4,
+        "content": "Code snippet is initializing a browsing process using Puppeteer. It sets up event listeners for elements and waits for specific events to occur before taking action on them, such as extracting link text.",
+        "type": "comment"
+    },
+    "26": {
+        "file_id": 4,
+        "content": "    } );\n    const page = await browser.newPage();\n    await page.setViewport( {\n        width: 1200,\n        height: 1200,\n        deviceScaleFactor: 1.75,\n    } );\n    const messages = [\n        {\n            \"role\": \"system\",\n            \"content\": `You are a website crawler. You will be given instructions on what to do by browsing. You are connected to a web browser and you will be given the screenshot of the website you are on. The links on the website will be highlighted in red in the screenshot. Always read what is in the screenshot. Don't guess link names.\nYou can go to a specific URL by answering with the following JSON format:\n{\"url\": \"url goes here\"}\nYou can click links on the website by referencing the text inside of the link/button, by answering in the following JSON format:\n{\"click\": \"Text in link\"}\nOnce you are on a URL and you have found the answer to the user's question, you can answer with a regular message.\nIn the beginning, go to a direct URL that you think might contain the answer",
+        "type": "code",
+        "location": "/vision_crawl.js:139-162"
+    },
+    "27": {
+        "file_id": 4,
+        "content": "This code sets up a browser instance with a specific viewport size and scale factor, then defines an initial message for the AI system that explains its role as a website crawler and provides instructions on how to interact with web pages. It starts by going to a given URL that might contain the answer to a question.",
+        "type": "comment"
+    },
+    "28": {
+        "file_id": 4,
+        "content": " to the user's question. Prefer to go directly to sub-urls like 'https://google.com/search?q=search' if applicable. Prefer to use Google for simple queries. If the user provides a direct URL, go to that one.`,\n        }\n    ];\n    console.log(\"GPT: How can I assist you today?\")\n    const prompt = await input(\"You: \");\n    console.log();\n    messages.push({\n        \"role\": \"user\",\n        \"content\": prompt,\n    });\n    let url;\n    let screenshot_taken = false;\n    while( true ) {\n        if( url ) {\n            console.log(\"Crawling \" + url);\n            await page.goto( url, {\n                waitUntil: \"domcontentloaded\",\n            } );\n            await highlight_links( page );\n            await Promise.race( [\n                waitForEvent(page, 'load'),\n                sleep(timeout)\n            ] );\n            await highlight_links( page );\n            await page.screenshot( {\n                path: \"screenshot.jpg\",\n                quality: 100,\n            } );\n            screenshot_taken = true;\n            url = null;",
+        "type": "code",
+        "location": "/vision_crawl.js:162-200"
+    },
+    "29": {
+        "file_id": 4,
+        "content": "The code is a part of an interactive assistant program that uses the Google search engine to find information based on user queries. It keeps track of the conversation in the 'messages' array and can also take screenshots of webpages if needed. The current user query or URL is being stored in the variable 'url'.",
+        "type": "comment"
+    },
+    "30": {
+        "file_id": 4,
+        "content": "        }\n        if( screenshot_taken ) {\n            const base64_image = await image_to_base64(\"screenshot.jpg\");\n            messages.push({\n                \"role\": \"user\",\n                \"content\": [\n                    {\n                        \"type\": \"image_url\",\n                        \"image_url\": base64_image,\n                    },\n                    {\n                        \"type\": \"text\",\n                        \"text\": \"Here's the screenshot of the website you are on right now. You can click on links with {\\\"click\\\": \\\"Link text\\\"} or you can crawl to another URL if this one is incorrect. If you find the answer to the user's question, you can respond normally.\",\n                    }\n                ]\n            });\n            screenshot_taken = false;\n        }\n        const response = await openai.chat.completions.create({\n            model: \"gpt-4-vision-preview\",\n            max_tokens: 1024,\n            //seed: 665234,\n            messages: messages,\n        });\n        const message = response.choices[0].message;",
+        "type": "code",
+        "location": "/vision_crawl.js:201-230"
+    },
+    "31": {
+        "file_id": 4,
+        "content": "If a screenshot was taken, add it to the messages array with accompanying text, then reset the screenshot_taken flag. Send the updated messages array in an openai.chat.completions.create API call to get a response from GPT-4 Vision Preview model.",
+        "type": "comment"
+    },
+    "32": {
+        "file_id": 4,
+        "content": "        const message_text = message.content;\n        messages.push({\n            \"role\": \"assistant\",\n            \"content\": message_text,\n        });\n        console.log( \"GPT: \" + message_text );\n        if( message_text.indexOf('{\"click\": \"') !== -1 ) {\n            let parts = message_text.split('{\"click\": \"');\n            parts = parts[1].split('\"}');\n            const link_text = parts[0].replace(/[^a-zA-Z0-9 ]/g, '');\n            console.log(\"Clicking on \" + link_text)\n            try {\n                const elements = await page.$$('[gpt-link-text]');\n                let partial;\n                let exact;\n                for( const element of elements ) {\n                    const attributeValue = await element.getAttribute('gpt-link-text');\n                    if( attributeValue.includes( link_text ) ) {\n                        partial = element;\n                    }\n                    if( attributeValue === link_text ) {\n                        exact = element;\n                    }\n                }",
+        "type": "code",
+        "location": "/vision_crawl.js:231-263"
+    },
+    "33": {
+        "file_id": 4,
+        "content": "Extracts link text from the message, finds matching elements on the page, and clicks on them.",
+        "type": "comment"
+    },
+    "34": {
+        "file_id": 4,
+        "content": "                if( exact ) {\n                    await exact.click();\n                } else if( partial ) {\n                    await partial.click();\n                } else {\n                    throw new Error( \"Can't find link\" );\n                }\n                await Promise.race( [\n                    waitForEvent(page, 'load'),\n                    sleep(timeout)\n                ] );\n                await highlight_links( page );\n                await page.screenshot( {\n                    path: \"screenshot.jpg\",\n                    quality: 100,\n                } );\n                screenshot_taken = true;\n            } catch( error ) {\n                console.log( \"ERROR: Clicking failed\" );\n                messages.push({\n                    \"role\": \"user\",\n                    \"content\": \"ERROR: I was unable to click that element\",\n                });\n            }\n            continue;\n        } else if( message_text.indexOf('{\"url\": \"') !== -1 ) {\n            let parts = message_text.split('{\"url\": \"');",
+        "type": "code",
+        "location": "/vision_crawl.js:265-297"
+    },
+    "35": {
+        "file_id": 4,
+        "content": "This code is checking if the exact or partial link should be clicked. If not found, it throws an error. It then waits for a page load event or sleeps for a specified timeout, highlights links on the page, takes a screenshot, and continues with the next message if no errors occur.",
+        "type": "comment"
+    },
+    "36": {
+        "file_id": 4,
+        "content": "            parts = parts[1].split('\"}');\n            url = parts[0];\n            continue;\n        }\n        const prompt = await input(\"You: \");\n        console.log();\n        messages.push({\n            \"role\": \"user\",\n            \"content\": prompt,\n        });\n    }\n})();",
+        "type": "code",
+        "location": "/vision_crawl.js:298-312"
+    },
+    "37": {
+        "file_id": 4,
+        "content": "This code is capturing user input and adding it to a messages array with role \"user\" and content as the user's input.",
+        "type": "comment"
+    },
+    "38": {
+        "file_id": 5,
+        "content": "/vision_crawl.py",
+        "type": "filepath"
+    },
+    "39": {
+        "file_id": 5,
+        "content": "The code initializes an OpenAI model, retrieves user questions from website images, prompts an AI chatbot for answers, manages inputs, and returns \"ANSWER_NOT_FOUND\" if no answer is found.",
+        "type": "summary"
+    },
+    "40": {
+        "file_id": 5,
+        "content": "from openai import OpenAI\nimport subprocess\nimport base64\nimport json\nimport os\nmodel = OpenAI()\nmodel.timeout = 10\ndef image_b64(image):\n    with open(image, \"rb\") as f:\n        return base64.b64encode(f.read()).decode()\nprompt = input(\"You: \")\nmessages = [\n    {\n        \"role\": \"system\",\n        \"content\": \"You are a web crawler. Your job is to give the user a URL to go to in order to find the answer to the question. Go to a direct URL that will likely have the answer to the user's question. Respond in the following JSON fromat: {\\\"url\\\": \\\"<put url here>\\\"}\",\n    },\n    {\n        \"role\": \"user\",\n        \"content\": prompt,\n    }\n]\nwhile True:\n    while True:\n        response = model.chat.completions.create(\n            model=\"gpt-3.5-turbo-1106\",\n            messages=messages,\n            max_tokens=1024,\n            response_format={\"type\": \"json_object\"},\n            seed=2232,\n        )\n        message = response.choices[0].message\n        message_json = json.loads(message.content)\n        url = message_json[\"url\"]",
+        "type": "code",
+        "location": "/vision_crawl.py:1-39"
+    },
+    "41": {
+        "file_id": 5,
+        "content": "This code initializes an OpenAI model, sets a timeout, defines a function to encode images in base64, prompts the user for input, and creates a list of messages for a chat completion request. It then enters a loop where it repeatedly makes a chat completion request to the OpenAI API using the provided messages and generates a response in JSON format containing a URL as the output.",
+        "type": "comment"
+    },
+    "42": {
+        "file_id": 5,
+        "content": "        messages.append({\n            \"role\": \"assistant\",\n            \"content\": message.content,\n        })\n        print(f\"Crawling {url}\")\n        if os.path.exists(\"screenshot.jpg\"):\n            os.remove(\"screenshot.jpg\")\n        result = subprocess.run(\n            [\"node\", \"screenshot.js\", url],\n            capture_output=True,\n            text=True\n        )\n        exitcode = result.returncode\n        output = result.stdout\n        if not os.path.exists(\"screenshot.jpg\"):\n            print(\"ERROR: Trying different URL\")\n            messages.append({\n                \"role\": \"user\",\n                \"content\": \"I was unable to crawl that site. Please pick a different one.\"\n            })\n        else:\n            break\n    b64_image = image_b64(\"screenshot.jpg\")\n    response = model.chat.completions.create(\n        model=\"gpt-4-vision-preview\",\n        messages=[\n            {\n                \"role\": \"system\",\n                \"content\": \"Your job is to answer the user's question based on the given screensh",
+        "type": "code",
+        "location": "/vision_crawl.py:41-76"
+    },
+    "43": {
+        "file_id": 5,
+        "content": "Code is crawling a website, taking a screenshot, and passing it to the GPT-4 vision model for previewing based on user's question. If the screenshot fails to capture, it prompts the user to try a different URL.",
+        "type": "comment"
+    },
+    "44": {
+        "file_id": 5,
+        "content": "ot of a website. Answer the user as an assistant, but don't tell that the information is from a screenshot or an image. Pretend it is information that you know. If you can't answer the question, simply respond with the code `ANSWER_NOT_FOUND` and nothing else.\",\n            }\n        ] + messages[1:] + [\n            {\n                \"role\": \"user\",\n                \"content\": [\n                    {\n                        \"type\": \"image_url\",\n                        \"image_url\": f\"data:image/jpeg;base64,{b64_image}\",\n                    },\n                    {\n                        \"type\": \"text\",\n                        \"text\": prompt,\n                    }\n                ]\n            }\n        ],\n        max_tokens=1024,\n    )\n    message = response.choices[0].message\n    message_text = message.content\n    if \"ANSWER_NOT_FOUND\" in message_text:\n        print(\"ERROR: Answer not found\")\n        messages.append({\n            \"role\": \"user\",\n            \"content\": \"I was unable to find the answer on that website. Please pick another one\"",
+        "type": "code",
+        "location": "/vision_crawl.py:76-103"
+    },
+    "45": {
+        "file_id": 5,
+        "content": "Code snippet retrieves a user's question from a website screenshot or image and prompts an AI chatbot to provide an answer. If the chatbot cannot find an answer, it responds with \"ANSWER_NOT_FOUND\".",
+        "type": "comment"
+    },
+    "46": {
+        "file_id": 5,
+        "content": "        })\n    else:\n        print(f\"GPT: {message_text}\")\n        prompt = input(\"\\nYou: \")\n        messages.append({\n            \"role\": \"user\",\n            \"content\": prompt,\n        })",
+        "type": "code",
+        "location": "/vision_crawl.py:104-111"
+    },
+    "47": {
+        "file_id": 5,
+        "content": "If AI response received, append message to \"messages\" list as user input. If not, print AI's message and prompt user for input, then append to \"messages\" with role \"user\".",
+        "type": "comment"
+    }
+}

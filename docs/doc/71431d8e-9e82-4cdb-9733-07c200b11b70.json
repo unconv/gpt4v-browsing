@@ -1,0 +1,10 @@
+{
+    "summary": "This is a package.json file for the \"gpt4v-browsing\" project, with dependencies including openai, puppeteer, and related packages.",
+    "details": [
+        {
+            "comment": "This is a package.json file for the \"gpt4v-browsing\" project, with dependencies including openai, puppeteer, and related packages.",
+            "location": "\"/media/root/Toshiba XG3/works/gpt4v-browsing/docs/src/package.json\":0-18",
+            "content": "{\n  \"name\": \"gpt4v-browsing\",\n  \"type\": \"module\",\n  \"version\": \"1.0.0\",\n  \"description\": \"\",\n  \"main\": \"index.js\",\n  \"scripts\": {\n    \"test\": \"echo \\\"Error: no test specified\\\" && exit 1\"\n  },\n  \"author\": \"\",\n  \"license\": \"ISC\",\n  \"dependencies\": {\n    \"openai\": \"^4.20.0\",\n    \"puppeteer\": \"^21.5.2\",\n    \"puppeteer-extra\": \"^3.3.6\",\n    \"puppeteer-extra-plugin-stealth\": \"^2.11.2\",\n    \"readline\": \"^1.3.0\"\n  }\n}"
+        }
+    ]
+}
