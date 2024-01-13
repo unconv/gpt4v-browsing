@@ -66,20 +66,23 @@
         ul {
             list-style: none;
         }
+        #feeling-lucky:hover{
+            cursor: pointer;
+        }
     </style>
 </head>
 
 <body>
     <article class="markdown-body">
-        <h2>Project Structure<span hierarchy="0" class="partial-repository-url"> of: unconv/gpt4v-browsing</span><div style="float: right;"><a href="index.html"><i class="bi bi-search"></i></a></div></h2>
+        <h2>Project structure<span hierarchy="0" class="partial-repository-url"> of: unconv/gpt4v-browsing</span><div style="float: right;"><a title="Document index" style="margin:3.5px;" href="index.html"><i class="bi bi-search"></i></a><a title="Feeling lucky" style="margin:3.5px;" id="feeling-lucky" href="#"><i class="bi bi-dice-3"></i></a><a title="Expand tree" style="margin:3.5px;" href="tree.html?full=true" id="expand-tree"><i class="bi bi-caret-down-square"></i></a></div></h2>
 <ul>
 <li><span hierarchy="0" class="expanded" onclick="toggleVisibility(this)" ><strong class="directory" id="/"><code>gpt4v-browsing</code></strong> <em>Website screenshot crawler with Puppeteer and OpenAI</em></span><ul>
-<li><a href="index.html?q=/README.md" id="/README.md"><code>README&period;md</code></a> <em>GPT4 Vision: Website Screenshot Crawler</em></li>
-<li><a href="index.html?q=/package.json" id="/package.json"><code>package&period;json</code></a> <em>Package.json for gpt4v-browsing with openai, puppeteer.</em></li>
-<li><a href="index.html?q=/requirements.txt" id="/requirements.txt"><code>requirements&period;txt</code></a> <em>Dependencies: openai library required.</em></li>
-<li><a href="index.html?q=/screenshot.js" id="/screenshot.js"><code>screenshot&period;js</code></a> <em>Screenshotter: Puppeteer+Stealth, 2 shots with delay.</em></li>
-<li><a href="index.html?q=/vision_crawl.js" id="/vision_crawl.js"><code>vision&UnderBar;crawl&period;js</code></a> <em>Vision Crawl: Browser extension with Puppeteer, OpenAI, link highlighting.</em></li>
-<li><a href="index.html?q=/vision_crawl.py" id="/vision_crawl.py"><code>vision&UnderBar;crawl&period;py</code></a> <em>OpenAI chatbot for image-based Q&amp;A</em></li>
+<li><a class="file_link" href="index.html?q=/package.json" id="/package.json"><code>package&period;json</code></a> <em>Package.json for gpt4v-browsing with openai, puppeteer.</em></li>
+<li><a class="file_link" href="index.html?q=/README.md" id="/README.md"><code>README&period;md</code></a> <em>GPT4 Vision: Website Screenshot Crawler</em></li>
+<li><a class="file_link" href="index.html?q=/requirements.txt" id="/requirements.txt"><code>requirements&period;txt</code></a> <em>Dependencies: openai library required.</em></li>
+<li><a class="file_link" href="index.html?q=/screenshot.js" id="/screenshot.js"><code>screenshot&period;js</code></a> <em>Screenshotter: Puppeteer+Stealth, 2 shots with delay.</em></li>
+<li><a class="file_link" href="index.html?q=/vision_crawl.js" id="/vision_crawl.js"><code>vision&UnderBar;crawl&period;js</code></a> <em>Vision Crawl: Browser extension with Puppeteer, OpenAI, link highlighting.</em></li>
+<li><a class="file_link" href="index.html?q=/vision_crawl.py" id="/vision_crawl.py"><code>vision&UnderBar;crawl&period;py</code></a> <em>OpenAI chatbot for image-based Q&amp;A</em></li>
 </ul>
 </li>
 </ul>
@@ -99,14 +102,27 @@
 
         const queryParams = getQueryParams(window.location.search);
         const show_full = queryParams.full == "true";
+        //const is_random = queryParams.random == 'true';
+        function feelingLucky() {
+            var elements = document.getElementsByClassName("file_link");
+            var randomIndex = Math.floor(Math.random() * elements.length);
+            window.location = elements[randomIndex].href;
+        }
+        //if (is_random) {feelingLucky();}
+        document.getElementById("feeling-lucky").onclick = feelingLucky;
         if (!show_full) {
             const spans = document.querySelectorAll('span');
             for (let span of spans) {
                 if (span.getAttribute("hierarchy") == '0') { continue }
-
                 toggleVisibility(span);
             }
+        } else {
+            const expand_elem = document.getElementById('expand-tree');
+            expand_elem.setAttribute("href", "tree.html");
+            expand_elem.setAttribute("title", "Undo expand");
+            expand_elem.innerHTML = '<i class="bi bi-caret-up-square"></i>'
         }
+
     </script>
 </body>
 

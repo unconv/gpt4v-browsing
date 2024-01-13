@@ -1,0 +1,22 @@
+{
+    "/README.md": "Web Crawling Tool for Answers with GPT4 Vision",
+    "/package.json": "Package.json for GPT4VBrowsing",
+    "/requirements.txt": "Openai Dependency",
+    "/screenshot.js": "Puppeteer Screenshot Script",
+    "/vision_crawl.js": "Vision Crawl: AI-Powered Browser Extension",
+    "/vision_crawl.js:1-39": "Setting Up Vision Crawler",
+    "/vision_crawl.js:104-138": "Puppeteer-Based Event Listener Initiation",
+    "/vision_crawl.js:139-162": "Web Crawler Setup Code",
+    "/vision_crawl.js:162-200": "Interactive Assistant: Google Search and Screenshots",
+    "/vision_crawl.js:201-230": "Screenshot and Send Message to GPT",
+    "/vision_crawl.js:231-263": "Automatic Link Clicker",
+    "/vision_crawl.js:265-297": "Error Checking and Highlighting Links",
+    "/vision_crawl.js:298-312": "User Input Capture and Storage",
+    "/vision_crawl.js:40-77": "Highlighting Links Extension",
+    "/vision_crawl.js:78-103": "Checking Element Visibility",
+    "/vision_crawl.py": "OpenAI Chatbot Image Q&A",
+    "/vision_crawl.py:1-39": "OpenAI Model for Image-Based Chat Completion",
+    "/vision_crawl.py:104-111": "AI Response Management Algorithm",
+    "/vision_crawl.py:41-76": "Website Preview with GPT-4 Vision",
+    "/vision_crawl.py:76-103": "AI-Powered Screenshot Q&A Tool"
+}
