@@ -1,0 +1,10 @@
+{
+    "summary": "This code is specifying a dependency on the 'openai' library for this project.",
+    "details": [
+        {
+            "comment": "This code is specifying a dependency on the 'openai' library for this project.",
+            "location": "\"/media/root/Toshiba XG3/works/gpt4v-browsing/docs/src/requirements.txt\":0-0",
+            "content": "openai"
+        }
+    ]
+}
